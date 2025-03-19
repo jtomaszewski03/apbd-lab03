@@ -1,6 +1,6 @@
 ﻿namespace apbd3;
 
-public class IHazardNotifier
+public interface IHazardNotifier
 {
-    
+    void Notify();
 }
