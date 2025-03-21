@@ -2,12 +2,12 @@
 
 public class Container
 {
-    public int? LoadWeight { get; set; }
-    public int Height { get; set; }
-    public int Weight { get; set; }
-    public int Depth { get; set; }
-    public string SerialNumber { get; set; }
-    public int MaximumLoadWeight { get; set; }
+    public double LoadWeight { get; set; }
+    public int Height { get; init; }
+    public int Weight { get; init; }
+    public int Depth { get; init; }
+    public string SerialNumber { get; init; }
+    public int MaximumLoadWeight { get; init; }
 
     public Container(int height, int weight, int depth, int maximumLoadWeight)
     {
@@ -18,7 +18,7 @@ public class Container
         MaximumLoadWeight = maximumLoadWeight;
     }
 
-    public void UnloadContainer()
+    public virtual void UnloadContainer()
     {
         LoadWeight = 0;
     }
@@ -27,5 +27,12 @@ public class Container
     {
         if (weight > MaximumLoadWeight)
             throw new OverfillException("Weight cannot be greater than maximum load weight");
+        LoadWeight = weight;
+    }
+
+    public override string ToString()
+    {
+        return
+            $"Container: {SerialNumber}, {nameof(Height)}: {Height}, {nameof(Weight)}: {Weight}, {nameof(Depth)}: {Depth}, {nameof(LoadWeight)}: {LoadWeight}, {nameof(MaximumLoadWeight)}: {MaximumLoadWeight}";
     }
 }

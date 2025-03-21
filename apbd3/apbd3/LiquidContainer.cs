@@ -15,7 +15,7 @@ public class LiquidContainer : Container, IHazardNotifier
 
     public void Notify()
     {
-        Console.WriteLine($"Dangerous situation with SN: {SerialNumber}");
+        Console.WriteLine($"Dangerous operation attempt with SN: {SerialNumber}");
     }
 
     public override void LoadContainer(int weight)
@@ -40,5 +40,10 @@ public class LiquidContainer : Container, IHazardNotifier
 
             base.LoadContainer(weight);
         }
+    }
+    
+    public override string ToString()
+    {
+        return "Liquid " + base.ToString();
     }
 }
