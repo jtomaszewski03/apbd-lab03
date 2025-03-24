@@ -4,7 +4,9 @@ public class GasContainer : Container, IHazardNotifier
 {
     private static int _gasCount;
     public double Pressure;
-    public GasContainer(int height, int weight, int depth, int maximumLoadWeight, double pressure) : base(height, weight, depth, maximumLoadWeight)
+
+    public GasContainer(int height, int weight, int depth, int maximumLoadWeight, double pressure) : base(height,
+        weight, depth, maximumLoadWeight)
     {
         SerialNumber += "G-" + _gasCount++;
         Pressure = pressure;
@@ -15,11 +17,17 @@ public class GasContainer : Container, IHazardNotifier
         LoadWeight *= 0.05;
     }
 
+    public override void LoadContainer(int weight)
+    {
+        if (weight > MaximumLoadWeight) Notify();
+        base.LoadContainer(weight);
+    }
+
     public void Notify()
     {
         Console.WriteLine($"Dangerous situation with SN: {SerialNumber}");
     }
-    
+
     public override string ToString()
     {
         return "Gas " + base.ToString();

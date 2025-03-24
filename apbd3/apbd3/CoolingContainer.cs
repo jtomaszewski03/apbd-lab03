@@ -5,9 +5,9 @@ public class CoolingContainer : Container
     private static int _coolingCount;
     private Dictionary<string, double> _products;
     public double Temperature;
-    public string Product;
+    public string? Product;
 
-    public CoolingContainer(int height, int weight, int depth, int maximumLoadWeight, string product) : base(height,
+    public CoolingContainer(int height, int weight, int depth, int maximumLoadWeight) : base(height,
         weight, depth, maximumLoadWeight)
     {
         SerialNumber += "C-" + _coolingCount++;
@@ -24,8 +24,35 @@ public class CoolingContainer : Container
             { "Butter", 20.5 },
             { "Eggs", 19 }
         };
-        Product = product;
-        Temperature = _products.GetValueOrDefault(Product, 0);
+        Temperature = 25;
+    }
+
+    public void LoadContainer(int weight, string product)
+    {
+        if (Product == null)
+        {
+            if (_products.TryGetValue(product, out double temp) && Temperature < temp)
+            {
+                Console.WriteLine("Temperature is too low for this product");
+                return;
+            }
+
+            Product = product;
+            Temperature = _products.GetValueOrDefault(Product, 25);
+        }
+        else if (!Product.Equals(product))
+        {
+            Console.WriteLine("Cannot store two different products in one cooling container");
+            return;
+        }
+
+        base.LoadContainer(weight);
+    }
+
+    public override void UnloadContainer()
+    {
+        Product = null;
+        base.UnloadContainer();
     }
 
     public override string ToString()

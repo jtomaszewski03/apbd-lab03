@@ -2,12 +2,12 @@
 
 public class ContainerShip(int speed, int maxContainerNum, int maxWeight)
 {
-    private List<Container> _containers = new List<Container>();
+    private List<Container> _containers = new();
     private int _speed = speed;
     private int _maxContainerNum = maxContainerNum;
     private int _maxWeight = maxWeight;
 
-    public void LoadContainer(Container container)
+    public void AddContainer(Container container)
     {
         _containers.Add(container);
     }
@@ -33,15 +33,23 @@ public class ContainerShip(int speed, int maxContainerNum, int maxWeight)
         if (_containers.Any(c => c.SerialNumber == serialNumber))
         {
             var container = _containers.Find(c => c.SerialNumber == serialNumber);
-            ship.LoadContainer(container);
-            _containers.Remove(container);
+            if (container != null)
+            {
+                ship.AddContainer(container);
+                _containers.Remove(container);
+            }
+            else
+            {
+                Console.WriteLine("Unable to find container " + serialNumber);
+            }
         }
         else Console.WriteLine($"Container: {serialNumber} not found");
     }
 
     public override string ToString()
     {
-        return $"ContainerShip - [Speed: {_speed}, MaxContainerNum: {_maxContainerNum}, MaxWeight: {_maxWeight}]" + " Loaded with containers: " +
+        return $"ContainerShip - [Speed: {_speed}, MaxContainerNum: {_maxContainerNum}, MaxWeight: {_maxWeight}]" +
+               " Loaded with containers: " +
                string.Join(", ", _containers.Select(c => c.SerialNumber));
     }
 }

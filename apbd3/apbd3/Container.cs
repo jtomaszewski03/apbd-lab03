@@ -27,7 +27,7 @@ public class Container
     {
         if (weight > MaximumLoadWeight)
             throw new OverfillException("Weight cannot be greater than maximum load weight");
-        LoadWeight = weight;
+        LoadWeight += weight;
     }
 
     public override string ToString()
