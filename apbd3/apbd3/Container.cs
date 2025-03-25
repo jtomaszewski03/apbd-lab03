@@ -25,7 +25,7 @@ public abstract class Container
 
     public virtual void LoadContainer(int weight)
     {
-        if (weight > MaximumLoadWeight)
+        if (weight + LoadWeight > MaximumLoadWeight)
             throw new OverfillException("Weight cannot be greater than maximum load weight");
         LoadWeight += weight;
     }

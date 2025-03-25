@@ -19,7 +19,7 @@ public class GasContainer : Container, IHazardNotifier
 
     public override void LoadContainer(int weight)
     {
-        if (weight > MaximumLoadWeight) Notify();
+        if (weight + LoadWeight > MaximumLoadWeight) Notify();
         base.LoadContainer(weight);
     }
 

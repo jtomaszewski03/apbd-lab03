@@ -22,7 +22,7 @@ public class LiquidContainer : Container, IHazardNotifier
     {
         if (IsDangerous)
         {
-            if (weight > MaximumLoadWeight / 2)
+            if (weight + LoadWeight > MaximumLoadWeight * 0.5)
             {
                 Notify();
                 throw new OverfillException("Weight too high for dangerous goods");
@@ -32,7 +32,7 @@ public class LiquidContainer : Container, IHazardNotifier
         }
         else
         {
-            if (weight > MaximumLoadWeight * 0.9)
+            if (weight + LoadWeight > MaximumLoadWeight * 0.9)
             {
                 Notify();
                 throw new OverfillException("Weight too high for liquid container");
