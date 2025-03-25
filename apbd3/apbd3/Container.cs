@@ -1,6 +1,6 @@
 ﻿namespace apbd3;
 
-public class Container
+public abstract class Container
 {
     public double LoadWeight { get; set; }
     public int Height { get; init; }
